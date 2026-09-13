@@ -22,7 +22,11 @@ export class App {
             const index = this._projects.findIndex((project, index, projects) => {
                 return project.title === projectTitle;
             });
-            this._projects[index].addTodo(title);
+            if (index === -1) {
+                throw new Error(`Can't add todo "${title}, project "${projectTitle}" not found.`);
+            } else {
+                this._projects[index].addTodo(title);
+            }
             // console.log("index", index);
             // console.log("this._projects[index]", this._projects[index]);
         }
@@ -34,8 +38,14 @@ export class App {
             // If project is not specify, chose default project (this._projects[0])
             this._projects[0].removeTodo(title);
         } else {
-            // TODO: Enhance to chose specific project
-            console.log("project is not undefined");
+            const index = this._projects.findIndex((project, index, projects) => {
+                return project.title === projectTitle;
+            });
+            if (this._projects[index] === undefined) {
+                throw new Error(`Can't remove todo "${title}", project "${projectTitle}" not found.`);
+            } else {
+                this._projects[index].removeTodo(title);
+            }
         }
     }
 

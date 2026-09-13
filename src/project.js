@@ -24,7 +24,7 @@ export class Project {
         // console.log(this._todos[index]);
 
         if (index === -1) {
-            throw new Error(`Can't remove todo "${title}", not found.`);
+            throw new Error(`Can't remove todo "${title}", not found in project "${this._title}".`);
         } else {
             this._todos.splice(index, 1);
         }
