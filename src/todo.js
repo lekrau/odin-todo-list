@@ -7,6 +7,11 @@ export class Todo {
     constructor(title) {
         this._title = title;
         this._id = crypto.randomUUID();
+        return this;
+    }
+
+    get id() {
+        return this._id;
     }
 
     get description() {

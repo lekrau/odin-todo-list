@@ -7,27 +7,29 @@ export class Project {
     constructor(title) {
         this._title = title;
         this._id = crypto.randomUUID();
+        return this;
     }
 
     addTodo(title) {
-        this._todos.push(new Todo(title));
+        const todo = new Todo(title);
+        this._todos.push(todo);
+        return todo;
     }
 
-    removeTodo(title) {
-        // Will cause problems for duplicate titles -> use id to identify Todo
+    removeTodo(id) {
         const index = this._todos.findIndex((todo, index, todos) => {
-            return todo.title === title;
-            // Equivalent?
-            // return todos[index].title === title;
+            return todo.id === id;
         });
-        // console.log(index);
-        // console.log(this._todos[index]);
-
         if (index === -1) {
-            throw new Error(`Can't remove todo "${title}", not found in project "${this._title}".`);
+            throw new Error(`Can't remove todo "${id}", not found in project "${this._title}".`);
         } else {
-            this._todos.splice(index, 1);
+            const todoArray = this._todos.splice(index, 1);
+            return todoArray[0];
         }
+    }
+
+    get id() {
+        return this._id;
     }
 
     get todos() {
