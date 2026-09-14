@@ -23,7 +23,7 @@ console.log("Test - Removing Todos from default project");
 app.removeTodo(storage.task.todos[2].id);
 // app.removeTodo("App programmieren"); // Error
 
-console.log("Test - Adding projects");
+console.log("Test - Adding Projects");
 app.addProject("Haushalt");
 storage.haushalt = {};
 storage.haushalt.title = app.projects[1].title;
@@ -42,17 +42,29 @@ storage.sonstiges.todos = [];
 console.log("Test - Deleting projects");
 app.deleteProject(storage.sonstiges.id);
 
-console.log("Test - Adding Todos to specific projects");
-storage.programmierung.todos.push(app.addTodo("App programmieren", "Programmierung"));
-storage.programmierung.todos.push(app.addTodo("Rechnung schreiben", "Programmierung"));
-storage.haushalt.todos.push(app.addTodo("Müll raus bringen", "Haushalt"));
+console.log("Test - Adding Todos to specific Projects");
+storage.programmierung.todos.push(app.addTodo("App programmieren", storage.programmierung.id));
+storage.programmierung.todos.push(app.addTodo("Rechnung schreiben", storage.programmierung.id));
+storage.haushalt.todos.push(app.addTodo("Müll raus bringen", storage.haushalt.id));
 // app.addTodo("Aufräumen", "Sonstiges"); // Error
-storage.haushalt.todos.push(app.addTodo("Aufräumen", "Haushalt"));
+storage.haushalt.todos.push(app.addTodo("Aufräumen", storage.haushalt.id));
 
-console.log("Test - Removing Todos from specific projects");
+console.log("Test - Removing Todos from specific Projects");
 app.removeTodo(storage.haushalt.todos[1].id, storage.haushalt.id);
 // app.removeTodo("Aufräumen", "Haushalt"); // Error
 // app.removeTodo("App Programmieren", "Programmieren"); // Error
+
+console.log("Test - Removing Todos/Projects with duplicate titles");
+storage.task.todos.push(app.addTodo("Oma anrufen"));
+app.removeTodo(storage.task.todos[0].id);
+storage.programmierung.todos.push(app.addTodo("App programmieren", storage.programmierung.id));
+app.removeTodo(storage.programmierung.todos[0].id, storage.programmierung.id);
+app.addProject("Haushalt");
+storage.haushalt2 = {};
+storage.haushalt2.title = app.projects[3].title;
+storage.haushalt2.id = app.projects[3].id;
+storage.haushalt2.todos = [];
+app.deleteProject(storage.haushalt.id);
 
 logger.logStatus(app.projects);
 console.table(storage);
@@ -62,7 +74,7 @@ console.table(storage);
 // 2. Dabei sinnvolles Verhalten für „Project nicht gefunden“ sicherstellen. ✅
 // 3. Deine bisherigen Test-Projects und -Todos so erfassen, dass du ihre erzeugten IDs sinnvoll weiterverwenden kannst. ✅
 // 4. Die bisher titelbasierte Identifikation bei den relevanten Operationen auf IDs umstellen. ✅
-// 5. Explizit testen, dass gleichnamige Todos und Projects kein Identifikationsproblem mehr verursachen.
+// 5. Explizit testen, dass gleichnamige Todos und Projects kein Identifikationsproblem mehr verursachen. ✅
 // 6. Die bisherigen Kernabläufe einmal vollständig durchlaufen lassen: Default Project, mehrere Projects, mehrere Todos, Hinzufügen und Entfernen.
 // 7. Testcode/Kommentare soweit aufräumen, dass der Stand verständlich ist, und committen.
 // 6. Bonusziel: Prüfe noch kurz, ob sich ein bestehendes Todo über deine Application Logic sinnvoll ändern lässt (title, description, dueDate, priority).

@@ -13,16 +13,16 @@ export class App {
         return project;
     }
 
-    addTodo(title, projectTitle) {
-        if (projectTitle === undefined) {
+    addTodo(title, projectId) {
+        if (projectId === undefined) {
             // If project is not specify, chose default project (this._projects[0])
             return this._projects[0].addTodo(title);
         } else {
             const index = this._projects.findIndex((project, index, projects) => {
-                return project.title === projectTitle;
+                return project.id === projectId;
             });
             if (index === -1) {
-                throw new Error(`Can't add todo "${title}, project "${projectTitle}" not found.`);
+                throw new Error(`Can't add todo "${title}, project "${projectId}" not found.`);
             } else {
                 return this._projects[index].addTodo(title);
             }
