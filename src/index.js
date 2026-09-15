@@ -1,8 +1,7 @@
 import "./styles.css";
 import { App } from "./app.js";
-import { Project } from "./project.js";
-import { Todo } from "./todo.js";
 import { Logger } from "./logging.js";
+import { DisplayController } from "./display-controller.js";
 
 const app = new App();
 const logger = new Logger();
@@ -69,12 +68,5 @@ app.deleteProject(storage.haushalt.id);
 logger.logStatus(app.projects);
 console.table(storage);
 
-// Ziele
-// 1. Todo zu einem bestimmten Project hinzufügen und daraus wieder entfernen können. ✅
-// 2. Dabei sinnvolles Verhalten für „Project nicht gefunden“ sicherstellen. ✅
-// 3. Deine bisherigen Test-Projects und -Todos so erfassen, dass du ihre erzeugten IDs sinnvoll weiterverwenden kannst. ✅
-// 4. Die bisher titelbasierte Identifikation bei den relevanten Operationen auf IDs umstellen. ✅
-// 5. Explizit testen, dass gleichnamige Todos und Projects kein Identifikationsproblem mehr verursachen. ✅
-// 6. Die bisherigen Kernabläufe einmal vollständig durchlaufen lassen: Default Project, mehrere Projects, mehrere Todos, Hinzufügen und Entfernen.
-// 7. Testcode/Kommentare soweit aufräumen, dass der Stand verständlich ist, und committen.
-// 6. Bonusziel: Prüfe noch kurz, ob sich ein bestehendes Todo über deine Application Logic sinnvoll ändern lässt (title, description, dueDate, priority).
+const displayController = new DisplayController;
+displayController.renderSidebar(app.projects);
