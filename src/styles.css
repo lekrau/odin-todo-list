@@ -74,13 +74,38 @@ body {
 
 /* SPECIFICS */
 :root {
-
+    --background--sidebar: #E4E4E4;
+    --background--main: #6175C3;
+    --text--sidebar: black;
+    --text--main: white;
 }
 
 body {
-
+    display: flex;
+    height: 100vh;
 }
 
-@media screen and (width <=500px) {
-
+.sidebar {
+    background-color: var(--background--sidebar);
+    color: var(--text--sidebar);
+    padding: 15px;
 }
+
+.sidebar li {
+    list-style: disc;
+    /* Change to specific icon (like in MS Todo) */
+}
+
+.project {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.main {
+    background-color: var(--background--main);
+    color: var(--text--main);
+    width: 100%;
+}
+
+@media screen and (width <=500px) {}

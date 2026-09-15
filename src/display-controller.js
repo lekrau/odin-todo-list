@@ -7,8 +7,13 @@ export class DisplayController {
     renderSidebar(projects) {
         projects.forEach(project => {
             const li = document.createElement("li");
-            li.textContent = project.title;
+            const button = document.createElement("button");
+
+            button.textContent = project.title;
+            button.classList.add("project");
+
             this.projectList.appendChild(li);
+            li.appendChild(button);
         });
     }
 };
