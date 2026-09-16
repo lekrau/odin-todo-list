@@ -6,5 +6,5 @@ import { runConsoleTests } from "./console-test.js";
 const app = new App();
 runConsoleTests(app);
 
-const displayController = new DisplayController;
-displayController.renderSidebar(app.projects);
+const displayController = new DisplayController(app.projects);
+displayController.renderSidebar();
