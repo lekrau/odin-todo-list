@@ -106,6 +106,28 @@ body {
     background-color: var(--background--main);
     color: var(--text--main);
     width: 100%;
+    padding: 20px;
+}
+
+.list__todos {
+    padding: 18px 0 20px 0;
+}
+
+li:has(.todo) {
+    list-style: none;
+}
+
+.todo {
+    width: 100%;
+    background-color: #EDEDED;
+    color: #34373D;
+    font-size: 0.9em;
+    text-align: left;
+    padding: 8px 20px;
+    margin-top: 2px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 16px 40px rgb(255 255 255 / 7%);
 }
 
 @media screen and (width <=500px) {}
