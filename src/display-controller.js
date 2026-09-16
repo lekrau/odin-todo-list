@@ -60,5 +60,5 @@ export class DisplayController {
 // 3. dessen Todos im Main-Bereich gerendert werden, ✅
 // 4. beim Wechsel auf ein anderes Project die vorherige Liste verschwindet und die neue erscheint, ✅
 // 5. sinnvollerweise auch der Project-Titel als Überschrift angezeigt wird, ✅
-// 6. du den funktionierenden Stand aufräumst und committen kannst.
-// Bonus: Beim initialen Laden bereits das Default-Project samt Todos anzeigen, sodass die Main-Fläche nicht erst nach dem ersten Klick gefüllt wird.
+// 6. du den funktionierenden Stand aufräumst und committen kannst. ✅
+// Bonus: Beim initialen Laden bereits das Default-Project samt Todos anzeigen, sodass die Main-Fläche nicht erst nach dem ersten Klick gefüllt wird. ✅

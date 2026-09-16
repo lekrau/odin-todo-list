@@ -8,3 +8,4 @@ runConsoleTests(app);
 
 const displayController = new DisplayController(app.projects);
 displayController.renderSidebar();
+displayController.renderList(app.projects[0]);
