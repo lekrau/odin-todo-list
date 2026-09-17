@@ -5,13 +5,21 @@ export class Todo {
     // Potential enhancements: notes, checklist
 
     constructor(title) {
-        this._title = title;
         this._id = crypto.randomUUID();
+        this._title = title;
         return this;
     }
 
     get id() {
         return this._id;
+    }
+
+    get title() {
+        return this._title;
+    }
+
+    set title(value) {
+        this._title = value;
     }
 
     get description() {
@@ -36,14 +44,5 @@ export class Todo {
 
     set priority(value) {
         this._priority = value;
-    }
-
-
-    get title() {
-        return this._title;
-    }
-
-    set title(value) {
-        this._title = value;
     }
 };
