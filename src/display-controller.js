@@ -39,7 +39,7 @@ export class DisplayController {
     renderList(project) {
         this.listHeading.textContent = project.title;
         this.listTodos.innerHTML = "";
-        this.todoDetails.hidden = true;
+        this.todoDetails.classList.add("inactive");
         this.todoDetails.ariaHidden = true;
         project.todos.forEach(todo => {
             const li = document.createElement("li");
@@ -69,7 +69,7 @@ export class DisplayController {
     }
 
     renderTodoDetails(todo) {
-        this.todoDetails.hidden = false;
+        this.todoDetails.classList.remove("inactive");
         this.todoDetails.ariaHidden = false;
         this.todoTitle.textContent = todo.title;
         this.todoDescription.textContent = todo.description;
