@@ -77,6 +77,16 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     app.projects[0].todos[2].description = "+49 987 654321";
     app.projects[0].todos[2].priority = 1;
 
+    console.log("Test - Add Todo to fill the screen");
+    storage.task.todos.push(app.addTodo("1"));
+    storage.task.todos.push(app.addTodo("2"));
+    storage.task.todos.push(app.addTodo("3"));
+    storage.task.todos.push(app.addTodo("4"));
+    storage.task.todos.push(app.addTodo("5"));
+    storage.task.todos.push(app.addTodo("6"));
+    storage.task.todos.push(app.addTodo("7"));    
+    storage.task.todos.push(app.addTodo("8"));    
+
     if (logStatus === true) {
         const logger = new Logger();
         logger.logStatus(app.projects);

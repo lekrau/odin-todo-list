@@ -138,7 +138,7 @@ export class DisplayController {
 // - show duedate in todo overview
 // - change color in todo overview for different priorities
 // - Delete a todo.
-// Add a todo
+// Add a todo - WEITER !!!
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
