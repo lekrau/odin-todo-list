@@ -12,7 +12,7 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.task.todos.push(app.addTodo("Oma anrufen"));
     storage.task.todos.push(app.addTodo("Aufgaben sortieren"));
     app.projects[0].todos[1].description = "Korrektem Projekt zuordnen";
-    app.projects[0].todos[1].priority = "2";
+    app.projects[0].todos[1].priority = 2;
     app.projects[0].todos[1].dueDate = "17.09.2026";
     storage.task.todos.push(app.addTodo("Faulenzen"));
 
@@ -43,7 +43,7 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.programmierung.todos.push(app.addTodo("App programmieren", storage.programmierung.id));
     storage.programmierung.todos.push(app.addTodo("Rechnung schreiben", storage.programmierung.id));
     app.projects[2].todos[1].description = "An Musterkunden";
-    app.projects[2].todos[1].priority = "3";
+    app.projects[2].todos[1].priority = 3;
     app.projects[2].todos[1].dueDate = "22.09.2026";
     storage.haushalt.todos.push(app.addTodo("Müll raus bringen", storage.haushalt.id));
     // app.addTodo("Aufräumen", "Sonstiges"); // Error
@@ -57,12 +57,12 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     console.log("Test - Removing Todos/Projects with duplicate titles");
     storage.task.todos.push(app.addTodo("Oma anrufen"));
     app.projects[0].todos[2].description = "+49 123 456789";
-    app.projects[0].todos[2].priority = "1";
-    app.projects[0].todos[2].dueDate = "20.09.2026";
+    app.projects[0].todos[2].priority = 1;
+    app.projects[0].todos[2].dueDate = "20.09.2026"
     app.removeTodo(storage.task.todos[0].id);
     storage.programmierung.todos.push(app.addTodo("App programmieren", storage.programmierung.id));
     app.projects[2].todos[2].description = "Odin Todo App";
-    app.projects[2].todos[2].priority = "2";
+    app.projects[2].todos[2].priority = 2;
     app.projects[2].todos[2].dueDate = "18.09.2026";
     app.removeTodo(storage.programmierung.todos[0].id, storage.programmierung.id);
     app.addProject("Haushalt");
@@ -71,6 +71,11 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.haushalt2.id = app.projects[3].id;
     storage.haushalt2.todos = [];
     app.deleteProject(storage.haushalt.id);
+
+    console.log("Test - Add Todo with undefined dueDate");
+    storage.task.todos.push(app.addTodo("Mama anrufen"));
+    app.projects[0].todos[2].description = "+49 987 654321";
+    app.projects[0].todos[2].priority = 1;
 
     if (logStatus === true) {
         const logger = new Logger();

@@ -145,16 +145,19 @@ li:has(.todo) {
 .todo__title {
     color: #34373D;
     padding-bottom: 20px;
+    border: none;
 }
 
-.todo__details p {
+.todo__details>input {
     color: #767678;
     padding: 10px 0;
+    border: none;
 }
 
-.todo__details p:nth-of-type(n+2) {
+.todo__details>input:nth-of-type(n+2) {
     border-top: 1px solid #EDEDED;
 }
+
 .inactive {
     display: none;
 }

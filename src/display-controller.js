@@ -8,6 +8,7 @@ export class DisplayController {
     todoDescription = this.todoDetails.querySelector(".todo__description");
     todoDueDate = this.todoDetails.querySelector(".todo__due-date");
     todoPriority = this.todoDetails.querySelector(".todo__priority");
+    handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
 
     constructor(projects) {
         this.projects = projects;
@@ -33,14 +34,14 @@ export class DisplayController {
         const project = this.projects.find((project, index, projects) => {
             return project.id === projectId;
         });
+        this.todoDetails.classList.add("inactive");
+        this.todoDetails.ariaHidden = true;
         this.renderList(project);
     }
 
     renderList(project) {
         this.listHeading.textContent = project.title;
         this.listTodos.innerHTML = "";
-        this.todoDetails.classList.add("inactive");
-        this.todoDetails.ariaHidden = true;
         project.todos.forEach(todo => {
             const li = document.createElement("li");
             const button = document.createElement("button");
@@ -65,16 +66,65 @@ export class DisplayController {
         const todo = project.todos.find((todo, index, projects) => {
             return todo.id === todoId;
         });
-        this.renderTodoDetails(todo);
+        this.renderTodoDetails(todo, projectId);
     }
 
-    renderTodoDetails(todo) {
+    renderTodoDetails(todo, projectId) {
         this.todoDetails.classList.remove("inactive");
         this.todoDetails.ariaHidden = false;
-        this.todoTitle.textContent = todo.title;
-        this.todoDescription.textContent = todo.description;
-        this.todoDueDate.textContent = todo.dueDate;
-        this.todoPriority.textContent = todo.priority;
+
+        this.todoDetails.dataset.todoId = todo.id;
+        this.todoDetails.dataset.projectId = projectId;
+        this.todoTitle.value = todo.title;
+        this.todoDescription.value = todo.description;
+        this.todoDueDate.value = todo.dueDate;
+        this.todoPriority.value = todo.priority;
+
+        // REFACTOR? Add eventListener to shared parent? Or specific eventListeners (see editAttribute())?
+        this.todoTitle.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
+        this.todoDescription.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
+        this.todoDueDate.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
+        this.todoPriority.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
+    }
+
+    handleTodoDetailsChange(event) {
+        const target = event.target;
+        const value = target.value;
+        let parent = target.parentElement;
+        if (parent.nodeName.toLowerCase() === "h3") {
+            parent = parent.parentElement;
+        }
+        const todoId = parent.dataset.todoId;
+        const projectId = parent.dataset.projectId;
+
+        // TODO: Repeated code -> function?
+        const project = this.projects.find((project, index, projects) => {
+            return project.id === projectId;
+        });
+        const todo = project.todos.find((todo, index, projects) => {
+            return todo.id === todoId;
+        });
+
+        // TODO: Refactor to use data attribute?
+        const targetClass = target.classList[0];
+        if (targetClass === "todo__title") {
+            todo.title = value;
+        } else if (targetClass === "todo__description") {
+            todo.description = value;
+        } else if (targetClass === "todo__due-date") {
+            // TODO: Proper treatment as a date
+            todo.dueDate = value;
+        } else if (targetClass === "todo__priority") {
+            todo.priority = +value;
+        } else {
+            throw new Error(`Unknown change of attribute "${targetClass}" of todo "${todoId}" in project "${projectId}".`);
+        }
+
+        this.renderList(project);
+    }
+
+    editAttribute(attribute, value) {
+        // REFACTOR? Make handleTodoDetailsChange shorter
     }
 };
 
@@ -83,11 +133,12 @@ export class DisplayController {
 // Assignment 5
 // - Expand a single todo to see/edit its details -> handleTodoClick implementieren
 //  * Due date, description etc. anzeigen ✅
-//  * Styling: Als Leiste rechts öffnen
-//  * Edit details
+//  * Styling: Als Leiste rechts öffnen ✅
+//  * Edit details ✅
 // - show duedate in todo overview
 // - change color in todo overview for different priorities
 // - Delete a todo.
+// Add a todo
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
