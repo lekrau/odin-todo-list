@@ -8,7 +8,9 @@ export class DisplayController {
     todoDescription = this.todoDetails.querySelector(".todo__description");
     todoDueDate = this.todoDetails.querySelector(".todo__due-date");
     todoPriority = this.todoDetails.querySelector(".todo__priority");
+    addTodoInput = this.body.querySelector(".add-todo");
     handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
+    handleAddTodoInputKeydownFunctionReference = this.handleAddTodoInputKeydown.bind(this);
 
     constructor(projects) {
         this.projects = projects;
@@ -55,6 +57,9 @@ export class DisplayController {
             this.listTodos.appendChild(li);
             li.appendChild(button);
         });
+
+        this.addTodoInput.dataset.projectId = project.id;
+        this.addTodoInput.addEventListener("keydown", this.handleAddTodoInputKeydownFunctionReference);
     }
 
     handleTodoClick(event) {
@@ -126,6 +131,23 @@ export class DisplayController {
     editAttribute(attribute, value) {
         // REFACTOR? Make handleTodoDetailsChange shorter
     }
+
+    handleAddTodoInputKeydown(event) {
+        if (event.key === "Enter") {
+            const target = event.target;
+            const value = target.value.trim();
+            if (value.length > 0) {
+                const projectId = event.target.dataset.projectId;
+                const project = this.projects.find((project, index, projects) => {
+                    return project.id === projectId;
+                });
+                // Skips app and directly works with Project.addTodo()
+                project.addTodo(value);
+                this.renderList(project);
+            }
+            target.value = "";
+        }
+    }
 };
 
 // TODOs
@@ -138,7 +160,7 @@ export class DisplayController {
 // - show duedate in todo overview
 // - change color in todo overview for different priorities
 // - Delete a todo.
-// Add a todo - WEITER !!!
+// Add a todo ✅
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
