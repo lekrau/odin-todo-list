@@ -33,9 +33,7 @@ export class DisplayController {
 
     handleProjectClick(event) {
         const projectId = event.target.dataset.projectId;
-        const project = this.projects.find((project, index, projects) => {
-            return project.id === projectId;
-        });
+        const project = this.findProject(projectId);
         this.todoDetails.classList.add("inactive");
         this.todoDetails.ariaHidden = true;
         this.renderList(project);
@@ -65,12 +63,8 @@ export class DisplayController {
     handleTodoClick(event) {
         const todoId = event.target.dataset.todoId;
         const projectId = event.target.dataset.projectId;
-        const project = this.projects.find((project, index, projects) => {
-            return project.id === projectId;
-        });
-        const todo = project.todos.find((todo, index, projects) => {
-            return todo.id === todoId;
-        });
+        const project = this.findProject(projectId);
+        const todo = this.findTodo(project, todoId);
         this.renderTodoDetails(todo, projectId);
     }
 
@@ -101,14 +95,8 @@ export class DisplayController {
         }
         const todoId = parent.dataset.todoId;
         const projectId = parent.dataset.projectId;
-
-        // TODO: Repeated code -> function?
-        const project = this.projects.find((project, index, projects) => {
-            return project.id === projectId;
-        });
-        const todo = project.todos.find((todo, index, projects) => {
-            return todo.id === todoId;
-        });
+        const project = this.findProject(projectId);
+        const todo = this.findTodo(project, todoId);
 
         // TODO: Refactor to use data attribute?
         const targetClass = target.classList[0];
@@ -138,15 +126,25 @@ export class DisplayController {
             const value = target.value.trim();
             if (value.length > 0) {
                 const projectId = event.target.dataset.projectId;
-                const project = this.projects.find((project, index, projects) => {
-                    return project.id === projectId;
-                });
+                const project = this.findProject(projectId);
                 // Skips app and directly works with Project.addTodo()
                 project.addTodo(value);
                 this.renderList(project);
             }
             target.value = "";
         }
+    }
+
+    findProject(projectId) {
+        return this.projects.find((project, index, projects) => {
+            return project.id === projectId;
+        });
+    }
+
+    findTodo(project, todoId) {
+        return project.todos.find((todo, index, projects) => {
+            return todo.id === todoId;
+        });
     }
 };
 
