@@ -128,7 +128,8 @@ li:has(.todo) {
 }
 
 .todo,
-.add-todo {
+.add-todo,
+.delete-todo {
     font-size: 0.9em;
     padding: 8px 20px;
     border: none;
@@ -148,7 +149,7 @@ li:has(.todo) {
 .add-todo {
     margin-top: 20px;
     background-color: #5466AF;
-    color: white;   
+    color: white;
 }
 
 .todo__details {
@@ -156,6 +157,9 @@ li:has(.todo) {
     height: 100vh;
     width: 300px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .todo__title {
@@ -164,14 +168,27 @@ li:has(.todo) {
     border: none;
 }
 
-.todo__details>input {
+.todo__details__container>input {
     color: #767678;
     padding: 10px 0;
     border: none;
 }
 
-.todo__details>input:nth-of-type(n+2) {
+.todo__details__container>input:nth-of-type(n+2) {
     border-top: 1px solid #EDEDED;
+}
+
+.delete-todo {
+    align-self: flex-end;
+    background-color: #767678;
+    color: white;
+}
+
+.delete-todo:hover {
+    background-color: darkred;
+    transition-duration: 500ms;
+    transition-property: all;
+    transform: scaleX(1.05);
 }
 
 .inactive {

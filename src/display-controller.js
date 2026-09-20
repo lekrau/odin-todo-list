@@ -9,8 +9,10 @@ export class DisplayController {
     todoDueDate = this.todoDetails.querySelector(".todo__due-date");
     todoPriority = this.todoDetails.querySelector(".todo__priority");
     addTodoInput = this.body.querySelector(".add-todo");
+    deleteTodoButton = this.body.querySelector(".delete-todo");
     handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
     handleAddTodoInputKeydownFunctionReference = this.handleAddTodoInputKeydown.bind(this);
+    handleDeleteTodoButtonClickFunctionReference = this.handleDeleteTodoButtonClick.bind(this);
 
     constructor(projects) {
         this.projects = projects;
@@ -84,6 +86,8 @@ export class DisplayController {
         this.todoDescription.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
         this.todoDueDate.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
         this.todoPriority.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
+
+        this.deleteTodoButton.addEventListener("click", this.handleDeleteTodoButtonClickFunctionReference);
     }
 
     handleTodoDetailsChange(event) {
@@ -127,12 +131,27 @@ export class DisplayController {
             if (value.length > 0) {
                 const projectId = event.target.dataset.projectId;
                 const project = this.findProject(projectId);
-                // Skips app and directly works with Project.addTodo()
+                // Skips App and directly works with Project.addTodo()
                 project.addTodo(value);
                 this.renderList(project);
             }
             target.value = "";
         }
+    }
+
+    handleDeleteTodoButtonClick(event) {
+        const target = event.target;
+        let parent = target.parentElement;
+        const todoId = parent.dataset.todoId;
+        const projectId = parent.dataset.projectId;
+        const project = this.findProject(projectId);
+
+        // Skips App and directly works with Project.removeTodo()
+        project.removeTodo(todoId);
+
+        this.todoDetails.classList.add("inactive");
+        this.todoDetails.ariaHidden = true;
+        this.renderList(project);
     }
 
     findProject(projectId) {
@@ -157,7 +176,7 @@ export class DisplayController {
 //  * Edit details ✅
 // - show duedate in todo overview
 // - change color in todo overview for different priorities
-// - Delete a todo.
+// - Delete a todo. ✅
 // Add a todo ✅
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
