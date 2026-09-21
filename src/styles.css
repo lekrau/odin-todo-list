@@ -195,13 +195,15 @@ li:has(.todo) {
     border: none;
 }
 
-.todo__details__container>input {
+.todo__details__container>input,
+.todo__details__container>select {
     color: #767678;
     padding: 10px 0;
     border: none;
+    display: block;
 }
 
-.todo__details__container>input:nth-of-type(n+2) {
+.todo__details__container>*:nth-child(n+2) {
     border-top: 1px solid #EDEDED;
 }
 
