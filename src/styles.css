@@ -149,6 +149,22 @@ li:has(.todo) {
     justify-content: center;
 }
 
+.todo.priority-0 {
+    color: #34373D;
+}
+
+.todo.priority-1 {
+    color: #CA8A04;
+}
+
+.todo.priority-2 {
+    color: #EA580C;
+}
+
+.todo.priority-3 {
+    color: #DC2626;
+}
+
 .todo span:last-of-type {
     color: #436AF2;
     font-size: 0.8em;

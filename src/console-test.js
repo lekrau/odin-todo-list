@@ -12,7 +12,7 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.task.todos.push(app.addTodo("Oma anrufen"));
     storage.task.todos.push(app.addTodo("Aufgaben sortieren"));
     app.projects[0].todos[1].description = "Korrektem Projekt zuordnen";
-    app.projects[0].todos[1].priority = 2;
+    app.projects[0].todos[1].priority = 1;
     app.projects[0].todos[1].dueDate = "17.09.2026";
     storage.task.todos.push(app.addTodo("Faulenzen"));
 
@@ -57,7 +57,7 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     console.log("Test - Removing Todos/Projects with duplicate titles");
     storage.task.todos.push(app.addTodo("Oma anrufen"));
     app.projects[0].todos[2].description = "+49 123 456789";
-    app.projects[0].todos[2].priority = 1;
+    app.projects[0].todos[2].priority = 2;
     app.projects[0].todos[2].dueDate = "20.09.2026"
     app.removeTodo(storage.task.todos[0].id);
     storage.programmierung.todos.push(app.addTodo("App programmieren", storage.programmierung.id));
@@ -75,7 +75,7 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     console.log("Test - Add Todo with undefined dueDate");
     storage.task.todos.push(app.addTodo("Mama anrufen"));
     app.projects[0].todos[2].description = "+49 987 654321";
-    app.projects[0].todos[2].priority = 1;
+    app.projects[0].todos[2].priority = 3;
 
     console.log("Test - Add Todo to fill the screen");
     storage.task.todos.push(app.addTodo("1"));
