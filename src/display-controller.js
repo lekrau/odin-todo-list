@@ -34,7 +34,7 @@ export class DisplayController {
     }
 
     handleProjectClick(event) {
-        const projectId = event.target.dataset.projectId;
+        const projectId = event.currentTarget.dataset.projectId;
         const project = this.findProject(projectId);
         this.todoDetails.classList.add("inactive");
         this.todoDetails.ariaHidden = true;
@@ -47,15 +47,21 @@ export class DisplayController {
         project.todos.forEach(todo => {
             const li = document.createElement("li");
             const button = document.createElement("button");
+            const title = document.createElement("span");
+            const dueDate = document.createElement("span");
 
-            button.textContent = todo.title;
+            title.textContent = todo.title;
+            dueDate.textContent = todo.dueDate;
             button.classList.add("todo");
+            button.classList.add(`priority-${todo.priority}`);
             button.addEventListener("click", this.handleTodoClick.bind(this));
             button.dataset.todoId = todo.id;
             button.dataset.projectId = project.id;
 
             this.listTodos.appendChild(li);
             li.appendChild(button);
+            button.appendChild(title);
+            button.appendChild(dueDate);
         });
 
         this.addTodoInput.dataset.projectId = project.id;
@@ -63,10 +69,11 @@ export class DisplayController {
     }
 
     handleTodoClick(event) {
-        const todoId = event.target.dataset.todoId;
-        const projectId = event.target.dataset.projectId;
+        const todoId = event.currentTarget.dataset.todoId;
+        const projectId = event.currentTarget.dataset.projectId;
         const project = this.findProject(projectId);
         const todo = this.findTodo(project, todoId);
+
         this.renderTodoDetails(todo, projectId);
     }
 
@@ -140,7 +147,7 @@ export class DisplayController {
     }
 
     handleDeleteTodoButtonClick(event) {
-        const target = event.target;
+        const target = event.currentTarget;
         let parent = target.parentElement;
         const todoId = parent.dataset.todoId;
         const projectId = parent.dataset.projectId;
@@ -174,7 +181,7 @@ export class DisplayController {
 //  * Due date, description etc. anzeigen ✅
 //  * Styling: Als Leiste rechts öffnen ✅
 //  * Edit details ✅
-// - show duedate in todo overview
+// - show duedate in todo overview ✅
 // - change color in todo overview for different priorities
 // - Delete a todo. ✅
 // Add a todo ✅

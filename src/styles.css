@@ -131,6 +131,7 @@ li:has(.todo) {
 .add-todo,
 .delete-todo {
     font-size: 0.9em;
+    height: 46px;
     padding: 8px 20px;
     border: none;
     border-radius: 5px;
@@ -142,14 +143,24 @@ li:has(.todo) {
     background-color: #EDEDED;
     color: #34373D;
     text-align: left;
-    padding: 8px 20px;
     margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.todo span:last-of-type {
+    color: #436AF2;
+    font-size: 0.8em;
 }
 
 .add-todo {
     margin-top: 20px;
     background-color: #5466AF;
     color: white;
+    field-sizing: fixed;
+    display: block;
+    line-height: 30px;
 }
 
 .todo__details {
@@ -182,6 +193,7 @@ li:has(.todo) {
     align-self: flex-end;
     background-color: #767678;
     color: white;
+    height: auto;
 }
 
 .delete-todo:hover {
