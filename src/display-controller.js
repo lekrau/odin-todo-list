@@ -100,12 +100,8 @@ export class DisplayController {
     handleTodoDetailsChange(event) {
         const target = event.target;
         const value = target.value;
-        let parent = target.parentElement;
-        if (parent.nodeName.toLowerCase() === "h3") {
-            parent = parent.parentElement;
-        }
-        const todoId = parent.dataset.todoId;
-        const projectId = parent.dataset.projectId;
+        const todoId = this.todoDetails.dataset.todoId;
+        const projectId = this.todoDetails.dataset.projectId;
         const project = this.findProject(projectId);
         const todo = this.findTodo(project, todoId);
 
@@ -182,7 +178,7 @@ export class DisplayController {
 //  * Styling: Als Leiste rechts öffnen ✅
 //  * Edit details ✅
 // - show duedate in todo overview ✅
-// - change color in todo overview for different priorities
+// - change color in todo overview for different priorities ✅
 // - Delete a todo. ✅
 // Add a todo ✅
 
