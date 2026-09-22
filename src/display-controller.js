@@ -69,10 +69,17 @@ export class DisplayController {
     }
 
     handleTodoClick(event) {
-        const todoId = event.currentTarget.dataset.todoId;
-        const projectId = event.currentTarget.dataset.projectId;
+        const target = event.currentTarget;
+        const todoId = target.dataset.todoId;
+        const projectId = target.dataset.projectId;
         const project = this.findProject(projectId);
         const todo = this.findTodo(project, todoId);
+        const selectedButtons = document.querySelectorAll(".selected");
+
+        selectedButtons.forEach(element => {
+            element.classList.remove("selected");
+        });
+        target.classList.add("selected");
 
         this.renderTodoDetails(todo, projectId);
     }
@@ -185,3 +192,4 @@ export class DisplayController {
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
 // - Projektunabhängige Listen (All, Planned, Today, Done)
+// - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag an Drop -> zurückgestellt

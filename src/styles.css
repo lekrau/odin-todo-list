@@ -149,6 +149,10 @@ li:has(.todo) {
     justify-content: center;
 }
 
+.todo.selected {
+    background-color: #D0D5E9;
+}
+
 .todo.priority-0 {
     color: #34373D;
 }
