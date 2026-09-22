@@ -1,6 +1,6 @@
 export class Todo {
     _description = "";
-    _dueDate;
+    _dueDate = "";
     _priority = 0;
     // Potential enhancements: notes, checklist
 

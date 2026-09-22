@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export class DisplayController {
     body = document.querySelector("body");
     projectList = this.body.querySelector(".project-list");
@@ -51,7 +53,9 @@ export class DisplayController {
             const dueDate = document.createElement("span");
 
             title.textContent = todo.title;
-            dueDate.textContent = todo.dueDate;
+            if (todo.dueDate !== "") {
+                dueDate.textContent = format(todo.dueDate, "dd.MM.yyyy");
+            }
             button.classList.add("todo");
             button.classList.add(`priority-${todo.priority}`);
             button.addEventListener("click", this.handleTodoClick.bind(this));
@@ -92,7 +96,11 @@ export class DisplayController {
         this.todoDetails.dataset.projectId = projectId;
         this.todoTitle.value = todo.title;
         this.todoDescription.value = todo.description;
-        this.todoDueDate.value = todo.dueDate;
+        if (todo.dueDate !== "") {
+            this.todoDueDate.value = format(todo.dueDate, "yyyy-MM-dd");
+        } else {
+            this.todoDueDate.value = todo.dueDate;
+        }
         this.todoPriority.value = todo.priority;
 
         // REFACTOR? Add eventListener to shared parent? Or specific eventListeners (see editAttribute())?
@@ -119,8 +127,9 @@ export class DisplayController {
         } else if (targetClass === "todo__description") {
             todo.description = value;
         } else if (targetClass === "todo__due-date") {
-            // TODO: Proper treatment as a date
-            todo.dueDate = value;
+            if (value !== "") {
+                todo.dueDate = new Date(value);
+            }
         } else if (targetClass === "todo__priority") {
             todo.priority = +value;
         } else {
@@ -193,3 +202,4 @@ export class DisplayController {
 // - "Done" marker ergänzen
 // - Projektunabhängige Listen (All, Planned, Today, Done)
 // - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag an Drop -> zurückgestellt
+// - Überfällige und/oder heutige Todos visuell hervorheben

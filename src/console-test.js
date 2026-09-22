@@ -13,7 +13,8 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.task.todos.push(app.addTodo("Aufgaben sortieren"));
     app.projects[0].todos[1].description = "Korrektem Projekt zuordnen";
     app.projects[0].todos[1].priority = 1;
-    app.projects[0].todos[1].dueDate = "17.09.2026";
+    // Uses monthIndex -> 8 is September
+    app.projects[0].todos[1].dueDate = new Date(2026, 8, 17);
     storage.task.todos.push(app.addTodo("Faulenzen"));
 
     console.log("Test - Removing Todos from default project");
@@ -44,7 +45,7 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.programmierung.todos.push(app.addTodo("Rechnung schreiben", storage.programmierung.id));
     app.projects[2].todos[1].description = "An Musterkunden";
     app.projects[2].todos[1].priority = 3;
-    app.projects[2].todos[1].dueDate = "22.09.2026";
+    app.projects[2].todos[1].dueDate = new Date(2026, 8, 22);
     storage.haushalt.todos.push(app.addTodo("Müll raus bringen", storage.haushalt.id));
     // app.addTodo("Aufräumen", "Sonstiges"); // Error
     storage.haushalt.todos.push(app.addTodo("Aufräumen", storage.haushalt.id));
@@ -58,12 +59,12 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.task.todos.push(app.addTodo("Oma anrufen"));
     app.projects[0].todos[2].description = "+49 123 456789";
     app.projects[0].todos[2].priority = 2;
-    app.projects[0].todos[2].dueDate = "20.09.2026"
+    app.projects[0].todos[2].dueDate = new Date(2026, 8, 20);
     app.removeTodo(storage.task.todos[0].id);
     storage.programmierung.todos.push(app.addTodo("App programmieren", storage.programmierung.id));
     app.projects[2].todos[2].description = "Odin Todo App";
     app.projects[2].todos[2].priority = 2;
-    app.projects[2].todos[2].dueDate = "18.09.2026";
+    app.projects[2].todos[2].dueDate = new Date(2026, 8, 18);
     app.removeTodo(storage.programmierung.todos[0].id, storage.programmierung.id);
     app.addProject("Haushalt");
     storage.haushalt2 = {};
@@ -84,8 +85,8 @@ export const runConsoleTests = (app, logStatus = false, logStorage = false) => {
     storage.task.todos.push(app.addTodo("4"));
     storage.task.todos.push(app.addTodo("5"));
     storage.task.todos.push(app.addTodo("6"));
-    storage.task.todos.push(app.addTodo("7"));    
-    storage.task.todos.push(app.addTodo("8"));    
+    storage.task.todos.push(app.addTodo("7"));
+    storage.task.todos.push(app.addTodo("8"));
 
     if (logStatus === true) {
         const logger = new Logger();
