@@ -16,8 +16,9 @@ export class DisplayController {
     handleAddTodoInputKeydownFunctionReference = this.handleAddTodoInputKeydown.bind(this);
     handleDeleteTodoButtonClickFunctionReference = this.handleDeleteTodoButtonClick.bind(this);
 
-    constructor(projects) {
+    constructor(projects, storageController) {
         this.projects = projects;
+        this.storageController = storageController;
     }
 
     renderSidebar() {
@@ -136,6 +137,7 @@ export class DisplayController {
             throw new Error(`Unknown change of attribute "${targetClass}" of todo "${todoId}" in project "${projectId}".`);
         }
 
+        this.storageController.storeProjects(this.projects);
         this.renderList(project);
     }
 
@@ -152,6 +154,7 @@ export class DisplayController {
                 const project = this.findProject(projectId);
                 // Skips App and directly works with Project.addTodo()
                 project.addTodo(value);
+                this.storageController.storeProjects(this.projects);
                 this.renderList(project);
             }
             target.value = "";
@@ -170,6 +173,7 @@ export class DisplayController {
 
         this.todoDetails.classList.add("inactive");
         this.todoDetails.ariaHidden = true;
+        this.storageController.storeProjects(this.projects);
         this.renderList(project);
     }
 
@@ -205,3 +209,4 @@ export class DisplayController {
 // - Projektunabhängige Listen (All, Planned, Today, Done)
 // - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag an Drop -> zurückgestellt
 // - Überfällige und/oder heutige Todos visuell hervorheben
+// - Remember opened project (don't change project on page reload)
