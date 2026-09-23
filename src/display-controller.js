@@ -197,6 +197,8 @@ export class DisplayController {
 // - change color in todo overview for different priorities ✅
 // - Delete a todo. ✅
 // Add a todo ✅
+// Create new project ✅
+// Delete a project ✅
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
