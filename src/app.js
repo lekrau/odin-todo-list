@@ -59,6 +59,19 @@ export class App {
         }
     }
 
+    renameProject(id, title) {
+        const index = this._projects.findIndex((project, index, projects) => {
+            return project.id === id;
+        });
+        if (index === -1) {
+            throw new Error(`Can't rename project "${id}", not found.`);
+        } else if (index === 0) {
+            throw new Error(`Can't rename default project "${id}".`);
+        } else {
+            this._projects[index].title = title;
+        }
+    }
+
     get projects() {
         return this._projects;
     };

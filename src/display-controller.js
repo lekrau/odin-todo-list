@@ -5,7 +5,7 @@ export class DisplayController {
     projectList = this.body.querySelector(".project-list");
     addProjectButton = this.body.querySelector(".add-project");
     listTodos = this.body.querySelector(".list__todos");
-    listHeading = this.body.querySelector(".list__heading");
+    listHeadingInput = this.body.querySelector(".list__heading input");
     todoDetails = this.body.querySelector(".todo__details");
     todoTitle = this.todoDetails.querySelector(".todo__title");
     todoDescription = this.todoDetails.querySelector(".todo__description");
@@ -13,10 +13,12 @@ export class DisplayController {
     todoPriority = this.todoDetails.querySelector(".todo__priority");
     addTodoInput = this.body.querySelector(".add-todo");
     deleteTodoButton = this.body.querySelector(".delete-todo");
-    handleAddProjectButtonClickReference = this.handleAddProjectButtonClick.bind(this);
+    handleAddProjectButtonClickFunctionReference = this.handleAddProjectButtonClick.bind(this);
+    handleListHeadingInputFunctionReference = this.handleListHeadingInputChange.bind(this);
     handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
     handleAddTodoInputKeydownFunctionReference = this.handleAddTodoInputKeydown.bind(this);
     handleDeleteTodoButtonClickFunctionReference = this.handleDeleteTodoButtonClick.bind(this);
+    activeList;
 
     constructor(app, storageController) {
         this.app = app;
@@ -38,7 +40,7 @@ export class DisplayController {
             this.projectList.appendChild(li);
             li.appendChild(button);
         });
-        this.addProjectButton.addEventListener("click", this.handleAddProjectButtonClickReference);
+        this.addProjectButton.addEventListener("click", this.handleAddProjectButtonClickFunctionReference);
     }
 
     handleProjectClick(event) {
@@ -55,11 +57,19 @@ export class DisplayController {
 
         const projectIndex = this.app.projects.length - 1;
         const project = this.app.projects[projectIndex];
+
         this.renderList(project);
+        this.storageController.storeProjects(this.projects);
+        
+        // Allow the user to set a project title
+        this.listHeadingInput.focus();
+        this.listHeadingInput.setSelectionRange(0, this.listHeadingInput.value.length);
     }
 
     renderList(project) {
-        this.listHeading.textContent = project.title;
+        this.activeList = project;
+        this.listHeadingInput.value = project.title;
+        this.listHeadingInput.addEventListener("change", this.handleListHeadingInputFunctionReference);
         this.listTodos.innerHTML = "";
         project.todos.forEach(todo => {
             const li = document.createElement("li");
@@ -85,6 +95,18 @@ export class DisplayController {
 
         this.addTodoInput.dataset.projectId = project.id;
         this.addTodoInput.addEventListener("keydown", this.handleAddTodoInputKeydownFunctionReference);
+    }
+
+    handleListHeadingInputChange(event) {
+        const target = event.currentTarget;
+        const value = target.value.trim();
+        if (value === "") {
+            target.value = this.activeList.title;
+        } else {
+            this.activeList.title = value;
+            this.storageController.storeProjects(this.projects);
+            this.renderSidebar();
+        }
     }
 
     handleTodoClick(event) {
@@ -216,7 +238,8 @@ export class DisplayController {
 // - Delete a todo. ✅
 // Add a todo ✅
 // Create new project
-// - Edit project names (on creation)
+// - Edit project names (on creation) ✅
+// - Add storage persistence ✅
 // - Fix UI when project lists fills whole screen height
 // Delete a project
 

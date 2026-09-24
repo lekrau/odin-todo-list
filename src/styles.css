@@ -85,6 +85,7 @@ body {
     height: 100vh;
 }
 
+/* Sidebar */
 .sidebar {
     background-color: var(--background--sidebar);
     color: var(--text--sidebar);
@@ -120,6 +121,7 @@ body {
     font-size: 1.3em;
 }
 
+/* Main */
 .main {
     background-color: var(--background--main);
     color: var(--text--main);
@@ -132,6 +134,12 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
+}
+
+.list__heading input {
+    color: white;
+    background-color: transparent;
+    border: none;
 }
 
 .list__todos {
@@ -201,7 +209,7 @@ li:has(.todo) {
     line-height: 30px;
 }
 
-.add-todo::placeholder{
+.add-todo::placeholder {
     color: white;
 }
 
