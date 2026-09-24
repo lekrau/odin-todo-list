@@ -96,6 +96,8 @@ body {
 
 .project-list {
     flex-grow: 1;
+    min-height: 0;
+    overflow: scroll;
 }
 
 .sidebar li {

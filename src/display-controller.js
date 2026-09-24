@@ -240,7 +240,7 @@ export class DisplayController {
 // Create new project
 // - Edit project names (on creation) ✅
 // - Add storage persistence ✅
-// - Fix UI when project lists fills whole screen height
+// - Fix UI when project lists fills whole screen height ✅
 // Delete a project
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
