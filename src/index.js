@@ -12,6 +12,6 @@ const storageController = new StorageController("localStorage");
 
 storageController.loadStorage(app);
 
-const displayController = new DisplayController(app.projects, storageController);
+const displayController = new DisplayController(app, storageController);
 displayController.renderSidebar();
 displayController.renderList(app.projects[0]);

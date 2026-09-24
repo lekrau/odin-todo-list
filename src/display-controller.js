@@ -3,6 +3,7 @@ import { format } from "date-fns";
 export class DisplayController {
     body = document.querySelector("body");
     projectList = this.body.querySelector(".project-list");
+    addProjectButton = this.body.querySelector(".add-project");
     listTodos = this.body.querySelector(".list__todos");
     listHeading = this.body.querySelector(".list__heading");
     todoDetails = this.body.querySelector(".todo__details");
@@ -12,16 +13,19 @@ export class DisplayController {
     todoPriority = this.todoDetails.querySelector(".todo__priority");
     addTodoInput = this.body.querySelector(".add-todo");
     deleteTodoButton = this.body.querySelector(".delete-todo");
+    handleAddProjectButtonClickReference = this.handleAddProjectButtonClick.bind(this);
     handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
     handleAddTodoInputKeydownFunctionReference = this.handleAddTodoInputKeydown.bind(this);
     handleDeleteTodoButtonClickFunctionReference = this.handleDeleteTodoButtonClick.bind(this);
 
-    constructor(projects, storageController) {
-        this.projects = projects;
+    constructor(app, storageController) {
+        this.app = app;
+        this.projects = app.projects;
         this.storageController = storageController;
     }
 
     renderSidebar() {
+        this.projectList.innerHTML = "";
         this.projects.forEach(project => {
             const li = document.createElement("li");
             const button = document.createElement("button");
@@ -34,6 +38,7 @@ export class DisplayController {
             this.projectList.appendChild(li);
             li.appendChild(button);
         });
+        this.addProjectButton.addEventListener("click", this.handleAddProjectButtonClickReference);
     }
 
     handleProjectClick(event) {
@@ -41,6 +46,15 @@ export class DisplayController {
         const project = this.findProject(projectId);
         this.todoDetails.classList.add("inactive");
         this.todoDetails.ariaHidden = true;
+        this.renderList(project);
+    }
+
+    handleAddProjectButtonClick(event) {
+        this.app.addProject("Untitled Project");
+        this.renderSidebar();
+
+        const projectIndex = this.app.projects.length - 1;
+        const project = this.app.projects[projectIndex];
         this.renderList(project);
     }
 
@@ -201,8 +215,10 @@ export class DisplayController {
 // - change color in todo overview for different priorities ✅
 // - Delete a todo. ✅
 // Add a todo ✅
-// Create new project ✅
-// Delete a project ✅
+// Create new project
+// - Edit project names (on creation)
+// - Fix UI when project lists fills whole screen height
+// Delete a project
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
@@ -210,3 +226,4 @@ export class DisplayController {
 // - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag an Drop -> zurückgestellt
 // - Überfällige und/oder heutige Todos visuell hervorheben
 // - Remember opened project (don't change project on page reload)
+// - Use app methods in DisplayController instead of directly accessing projects

@@ -89,6 +89,12 @@ body {
     background-color: var(--background--sidebar);
     color: var(--text--sidebar);
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-list {
+    flex-grow: 1;
 }
 
 .sidebar li {
@@ -100,6 +106,18 @@ body {
     padding: 0;
     border: none;
     background-color: transparent;
+}
+
+.add-project {
+    color: #34373D;
+    background-color: transparent;
+    border: none;
+}
+
+.add-project::before {
+    content: "+ ";
+    font-weight: 500;
+    font-size: 1.3em;
 }
 
 .main {
@@ -181,6 +199,10 @@ li:has(.todo) {
     field-sizing: fixed;
     display: block;
     line-height: 30px;
+}
+
+.add-todo::placeholder{
+    color: white;
 }
 
 .todo__details {
