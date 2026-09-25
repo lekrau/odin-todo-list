@@ -82,6 +82,7 @@ export class DisplayController {
                 dueDate.textContent = format(todo.dueDate, "dd.MM.yyyy");
             }
             button.classList.add("todo");
+            button.classList.add("button");
             button.classList.add(`priority-${todo.priority}`);
             button.addEventListener("click", this.handleTodoClick.bind(this));
             button.dataset.todoId = todo.id;
@@ -242,11 +243,12 @@ export class DisplayController {
 // - Add storage persistence ✅
 // - Fix UI when project lists fills whole screen height ✅
 // Delete a project
+// Remember opened project (don't change project on page reload)
+// Basic responsiveness
 
 // Ideen - erst Lernwert kurz mit ChatGPT reflektieren
 // - "Done" marker ergänzen
 // - Projektunabhängige Listen (All, Planned, Today, Done)
-// - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag an Drop -> zurückgestellt
+// - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag and Drop -> zurückgestellt
 // - Überfällige und/oder heutige Todos visuell hervorheben
-// - Remember opened project (don't change project on page reload)
 // - Use app methods in DisplayController instead of directly accessing projects

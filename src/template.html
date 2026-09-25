@@ -11,15 +11,18 @@
     <nav class="sidebar">
         <h1>Projects</h1>
         <ul class="project-list"></ul>
-        <button type="button" class="add-project">New project</button>
+        <button type="button" class="add-project button">New project</button>
     </nav>
     <main class="main">
         <div class="main-container">
-            <h2 class="list__heading">
-                <input type="text">
-            </h2>
+            <div class="list-container">
+                <h2 class="list__heading">
+                    <input type="text">
+                </h2>
+                <button type="button" class="delete-project button delete">Delete Project</button>
+            </div>
             <ul class="list__todos"></ul>
-            <input type="text" class="add-todo" placeholder="Add todo">
+            <input type="text" class="add-todo button" placeholder="Add todo">
         </div>
         <form class="todo__details inactive" aria-hidden="true">
             <div class="todo__details__container">
@@ -33,7 +36,7 @@
                     <option value="3">High</option>
                 </select>
             </div>
-            <button type="button" class="delete-todo">Delete</button>
+            <button type="button" class="delete-todo button delete">Delete</button>
         </form>
     </main>
 </body>

@@ -85,6 +85,30 @@ body {
     height: 100vh;
 }
 
+.button {
+    font-size: 0.9em;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 16px 40px rgb(255 255 255 / 7%);
+}
+
+.button.delete {
+    background-color: #767678;
+    color: white;
+}
+
+.button.delete:hover {
+    background-color: darkred;
+    transition-duration: 500ms;
+    transition-property: all;
+    transform: scaleX(1.05);
+}
+
+.inactive {
+    display: none;
+}
+
 /* Sidebar */
 .sidebar {
     background-color: var(--background--sidebar);
@@ -138,14 +162,25 @@ body {
     padding: 20px;
 }
 
+.list-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .list__heading input {
     color: white;
     background-color: transparent;
     border: none;
 }
 
+.delete-project {
+    background-color: red;
+}
+
 .list__todos {
-    padding: 18px 0 20px 0;
+    padding-top: 20px;
+    padding-left: 0;
+    margin-top: 18px;
     flex-grow: 1;
     min-height: 0;
     overflow: scroll;
@@ -155,19 +190,9 @@ li:has(.todo) {
     list-style: none;
 }
 
-.todo,
-.add-todo,
-.delete-todo {
-    font-size: 0.9em;
-    height: 46px;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 16px 40px rgb(255 255 255 / 7%);
-}
-
 .todo {
     width: 100%;
+    height: 46px;
     background-color: #EDEDED;
     color: #34373D;
     text-align: left;
@@ -203,12 +228,13 @@ li:has(.todo) {
 }
 
 .add-todo {
+    height: 46px;
+    line-height: 46px;
     margin-top: 20px;
     background-color: #5466AF;
     color: white;
     field-sizing: fixed;
     display: block;
-    line-height: 30px;
 }
 
 .add-todo::placeholder {
@@ -245,20 +271,6 @@ li:has(.todo) {
 
 .delete-todo {
     align-self: flex-end;
-    background-color: #767678;
-    color: white;
-    height: auto;
-}
-
-.delete-todo:hover {
-    background-color: darkred;
-    transition-duration: 500ms;
-    transition-property: all;
-    transform: scaleX(1.05);
-}
-
-.inactive {
-    display: none;
 }
 
 @media screen and (width <=500px) {}
