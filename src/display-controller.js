@@ -2,6 +2,7 @@ import { format } from "date-fns";
 
 export class DisplayController {
     body = document.querySelector("body");
+    deleteProjectButton = this.body.querySelector(".delete-project");
     projectList = this.body.querySelector(".project-list");
     addProjectButton = this.body.querySelector(".add-project");
     listTodos = this.body.querySelector(".list__todos");
@@ -13,6 +14,7 @@ export class DisplayController {
     todoPriority = this.todoDetails.querySelector(".todo__priority");
     addTodoInput = this.body.querySelector(".add-todo");
     deleteTodoButton = this.body.querySelector(".delete-todo");
+    handleDeleteProjectButtonClickFunctionReference = this.handleDeleteProjectButtonClick.bind(this);
     handleAddProjectButtonClickFunctionReference = this.handleAddProjectButtonClick.bind(this);
     handleListHeadingInputFunctionReference = this.handleListHeadingInputChange.bind(this);
     handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
@@ -60,7 +62,7 @@ export class DisplayController {
 
         this.renderList(project);
         this.storageController.storeProjects(this.projects);
-        
+
         // Allow the user to set a project title
         this.listHeadingInput.focus();
         this.listHeadingInput.setSelectionRange(0, this.listHeadingInput.value.length);
@@ -70,6 +72,7 @@ export class DisplayController {
         this.activeList = project;
         this.listHeadingInput.value = project.title;
         this.listHeadingInput.addEventListener("change", this.handleListHeadingInputFunctionReference);
+        this.deleteProjectButton.addEventListener("click", this.handleDeleteProjectButtonClickFunctionReference);
         this.listTodos.innerHTML = "";
         project.todos.forEach(todo => {
             const li = document.createElement("li");
@@ -107,6 +110,17 @@ export class DisplayController {
             this.activeList.title = value;
             this.storageController.storeProjects(this.projects);
             this.renderSidebar();
+        }
+    }
+
+    handleDeleteProjectButtonClick(event) {
+        if (this.activeList === undefined) {
+            throw new Error("Can't delete current project, reference is missing.");
+        } else {
+            this.app.deleteProject(this.activeList.id);
+            this.renderSidebar();
+            this.renderList(this.app.projects[0]);
+            this.storageController.storeProjects(this.projects);
         }
     }
 
@@ -242,7 +256,8 @@ export class DisplayController {
 // - Edit project names (on creation) ✅
 // - Add storage persistence ✅
 // - Fix UI when project lists fills whole screen height ✅
-// Delete a project
+// Delete a project ✅
+// - Disable for default project
 // Remember opened project (don't change project on page reload)
 // Basic responsiveness
 
