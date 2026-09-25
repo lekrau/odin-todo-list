@@ -98,11 +98,43 @@ body {
     color: white;
 }
 
-.button.delete:hover {
+.button.delete:enabled:hover {
     background-color: darkred;
     transition-duration: 500ms;
     transition-property: all;
     transform: scaleX(1.05);
+}
+
+
+.button:disabled {
+    color: black;
+}
+
+button:disabled:active {
+    animation-name: horizontal-shaking;
+    animation-duration: 1s;
+}
+
+@keyframes horizontal-shaking {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(5px)
+    }
+
+    50% {
+        transform: translateX(-5px)
+    }
+
+    75% {
+        transform: translateX(5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
 }
 
 .inactive {
@@ -171,10 +203,6 @@ body {
     color: white;
     background-color: transparent;
     border: none;
-}
-
-.delete-project {
-    background-color: red;
 }
 
 .list__todos {

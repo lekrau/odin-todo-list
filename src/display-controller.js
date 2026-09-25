@@ -71,8 +71,16 @@ export class DisplayController {
     renderList(project) {
         this.activeList = project;
         this.listHeadingInput.value = project.title;
+
         this.listHeadingInput.addEventListener("change", this.handleListHeadingInputFunctionReference);
-        this.deleteProjectButton.addEventListener("click", this.handleDeleteProjectButtonClickFunctionReference);
+        if (project.id === this.app.projects[0].id) {
+            this.deleteProjectButton.disabled = true;
+        } else {
+            this.deleteProjectButton.disabled = false;
+            this.deleteProjectButton.addEventListener("click", this.handleDeleteProjectButtonClickFunctionReference);
+        }
+
+
         this.listTodos.innerHTML = "";
         project.todos.forEach(todo => {
             const li = document.createElement("li");
@@ -257,7 +265,7 @@ export class DisplayController {
 // - Add storage persistence ✅
 // - Fix UI when project lists fills whole screen height ✅
 // Delete a project ✅
-// - Disable for default project
+// - Disable for default project ✅
 // Remember opened project (don't change project on page reload)
 // Basic responsiveness
 
