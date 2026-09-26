@@ -63,8 +63,8 @@ export class DisplayController {
         this.app.addProject("Untitled Project");
         this.renderSidebar();
 
-        const projectIndex = this.app.projects.length - 1;
-        const project = this.app.projects[projectIndex];
+        const projectIndex = this.projects.length - 1;
+        const project = this.projects[projectIndex];
 
         this.renderList(project);
         this.storageController.storeProjects(this.projects);
@@ -91,7 +91,7 @@ export class DisplayController {
         this.listHeadingInput.value = project.title;
 
         this.listHeadingInput.addEventListener("change", this.handleListHeadingInputFunctionReference);
-        if (project.id === this.app.projects[0].id) {
+        if (project.id === this.projects[0].id) {
             this.deleteProjectButton.disabled = true;
         } else {
             this.deleteProjectButton.disabled = false;
@@ -132,7 +132,8 @@ export class DisplayController {
         if (value === "") {
             target.value = this.activeList.title;
         } else {
-            this.activeList.title = value;
+            this.app.renameProject(this.activeList.id, value);
+            }
             this.storageController.storeProjects(this.projects);
             this.renderSidebar();
         }
@@ -144,7 +145,7 @@ export class DisplayController {
         } else {
             this.app.deleteProject(this.activeList.id);
             this.renderSidebar();
-            this.renderList(this.app.projects[0]);
+            this.renderList(this.projects[0]);
             this.storageController.storeProjects(this.projects);
         }
     }
@@ -228,8 +229,7 @@ export class DisplayController {
             if (value.length > 0) {
                 const projectId = event.target.dataset.projectId;
                 const project = this.findProject(projectId);
-                // Skips App and directly works with Project.addTodo()
-                project.addTodo(value);
+                this.app.addTodo(value, projectId);
                 this.storageController.storeProjects(this.projects);
                 this.renderList(project);
             }
@@ -244,8 +244,7 @@ export class DisplayController {
         const projectId = parent.dataset.projectId;
         const project = this.findProject(projectId);
 
-        // Skips App and directly works with Project.removeTodo()
-        project.removeTodo(todoId);
+        this.app.removeTodo(todoId, projectId);
 
         this.todoDetails.classList.add("inactive");
         this.todoDetails.ariaHidden = true;
@@ -284,13 +283,15 @@ export class DisplayController {
 // Delete a project ✅
 // - Disable for default project ✅
 // Remember opened project (don't change project on page reload) ✅
-// Use app methods in DisplayController instead of directly accessing projects
+// Use app methods in DisplayController instead of directly accessing projects ✅
 // Due Date einmal wirklich durch den gesamten Persistence-Roundtrip testen
 // Datum löschen testen
+// ChatGPT Repository Review Prompt
 // README
 
 // Potenzielle Erweiterungen
 // - Basic responsiveness
+// - Saubere Architektur-Trennung - App.editTodo(...), updateTodo(...) statt direktem Zugriff in handleTodoDetailsChange()
 // - "Done" marker ergänzen
 // - Projektunabhängige Listen (All, Planned, Today, Done)
 // - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag and Drop -> zurückgestellt
