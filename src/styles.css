@@ -110,7 +110,7 @@ body {
     color: black;
 }
 
-button:disabled:active {
+button:disabled:active, .error {
     animation-name: horizontal-shaking;
     animation-duration: 1s;
 }

@@ -132,7 +132,14 @@ export class DisplayController {
         if (value === "") {
             target.value = this.activeList.title;
         } else {
-            this.app.renameProject(this.activeList.id, value);
+            try {
+                this.app.renameProject(this.activeList.id, value);
+            } catch (error) {
+                target.classList.add("error");
+                target.value = this.activeList.title;
+                setTimeout(() => {
+                    target.classList.remove("error");
+                }, 1000);
             }
             this.storageController.storeProjects(this.projects);
             this.renderSidebar();
