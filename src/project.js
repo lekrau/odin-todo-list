@@ -4,9 +4,9 @@ export class Project {
     _todos = [];
     _title;
 
-    constructor(title) {
+    constructor(title, id = crypto.randomUUID()) {
         this._title = title;
-        this._id = crypto.randomUUID();
+        this._id = id;
         return this;
     }
 

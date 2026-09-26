@@ -20,12 +20,18 @@ export class DisplayController {
     handleTodoDetailsChangeFunctionReference = this.handleTodoDetailsChange.bind(this);
     handleAddTodoInputKeydownFunctionReference = this.handleAddTodoInputKeydown.bind(this);
     handleDeleteTodoButtonClickFunctionReference = this.handleDeleteTodoButtonClick.bind(this);
-    activeList;
 
     constructor(app, storageController) {
         this.app = app;
         this.projects = app.projects;
         this.storageController = storageController;
+        const activeProjectId = storageController.loadActiveProjectId();
+        const activeProject = this.findProject(activeProjectId);
+        if (activeProject) {
+            this.activeList = activeProject;
+        } else {
+            this.activeList = this.projects[0];
+        }
     }
 
     renderSidebar() {
@@ -69,7 +75,19 @@ export class DisplayController {
     }
 
     renderList(project) {
-        this.activeList = project;
+        if (project) {
+            this.activeList = project;
+            this.storageController.storeActiveProjectId(project.id);
+        } else {
+            // Check if the last active project was stored
+            if (this.activeList) {
+                project = this.activeList;
+            } else {
+                // Use the default project
+                project = this.projects[0];
+            }
+        }
+
         this.listHeadingInput.value = project.title;
 
         this.listHeadingInput.addEventListener("change", this.handleListHeadingInputFunctionReference);
@@ -79,7 +97,6 @@ export class DisplayController {
             this.deleteProjectButton.disabled = false;
             this.deleteProjectButton.addEventListener("click", this.handleDeleteProjectButtonClickFunctionReference);
         }
-
 
         this.listTodos.innerHTML = "";
         project.todos.forEach(todo => {
@@ -266,12 +283,15 @@ export class DisplayController {
 // - Fix UI when project lists fills whole screen height ✅
 // Delete a project ✅
 // - Disable for default project ✅
-// Remember opened project (don't change project on page reload)
-// Basic responsiveness
+// Remember opened project (don't change project on page reload) ✅
+// Use app methods in DisplayController instead of directly accessing projects
+// Due Date einmal wirklich durch den gesamten Persistence-Roundtrip testen
+// Datum löschen testen
+// README
 
-// Ideen - erst Lernwert kurz mit ChatGPT reflektieren
+// Potenzielle Erweiterungen
+// - Basic responsiveness
 // - "Done" marker ergänzen
 // - Projektunabhängige Listen (All, Planned, Today, Done)
 // - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag and Drop -> zurückgestellt
 // - Überfällige und/oder heutige Todos visuell hervorheben
-// - Use app methods in DisplayController instead of directly accessing projects

@@ -14,4 +14,4 @@ storageController.loadStorage(app);
 
 const displayController = new DisplayController(app, storageController);
 displayController.renderSidebar();
-displayController.renderList(app.projects[0]);
+displayController.renderList();

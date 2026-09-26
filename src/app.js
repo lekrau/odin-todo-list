@@ -7,8 +7,8 @@ export class App {
         this._projects.push(new Project("Tasks"));
     }
 
-    addProject(title) {
-        const project = new Project(title)
+    addProject(title, id) {
+        const project = new Project(title, id);
         this._projects.push(project);
         return project;
     }

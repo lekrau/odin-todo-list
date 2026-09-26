@@ -6,7 +6,6 @@ export class StorageController {
 
     storeProjects(projects) {
         this.storage.setItem("projects", JSON.stringify(projects));
-        // this.storage.setItem(project.id, JSON.stringify(project));
     }
 
     loadStorage(app) {
@@ -19,6 +18,8 @@ export class StorageController {
                 otherProjects.push(projects[index]);
             }
 
+            // Refactor: Different treatment of default project is unnecessary?
+            // -> Just perform the second forEach on projects (instead of other projects)?
             defaultProject._todos.forEach(todo => {
                 app.addTodo(todo._title);
                 const todoIndex = app.projects[0].todos.length - 1;
@@ -28,7 +29,7 @@ export class StorageController {
             });
 
             otherProjects.forEach(project => {
-                app.addProject(project._title);
+                app.addProject(project._title, project._id);
                 const projectIndex = app.projects.length - 1;
                 const projectId = app.projects[projectIndex].id;
                 project._todos.forEach(todo => {
@@ -45,6 +46,13 @@ export class StorageController {
         }
     }
 
+    storeActiveProjectId(projectId) {
+        this.storage.setItem("activeProjectId", projectId);
+    }
+
+    loadActiveProjectId() {
+        return this.storage.getItem("activeProjectId");
+    }
 
     storageAvailable() {
         // Adapted from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#feature-detecting_localstorage
