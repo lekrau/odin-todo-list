@@ -212,7 +212,9 @@ export class DisplayController {
         } else if (targetClass === "todo__description") {
             todo.description = value;
         } else if (targetClass === "todo__due-date") {
-            if (value !== "") {
+            if (value === "") {
+                todo.dueDate = "";
+            } else {
                 todo.dueDate = new Date(value);
             }
         } else if (targetClass === "todo__priority") {
