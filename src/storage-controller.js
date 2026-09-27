@@ -24,7 +24,11 @@ export class StorageController {
                 app.addTodo(todo._title);
                 const todoIndex = app.projects[0].todos.length - 1;
                 app.projects[0].todos[todoIndex].description = todo._description;
-                app.projects[0].todos[todoIndex].dueDate = todo._dueDate;
+                if (todo._dueDate === "") {
+                    app.projects[0].todos[todoIndex].dueDate = todo._dueDate;
+                } else {
+                    app.projects[0].todos[todoIndex].dueDate = new Date(todo._dueDate);
+                }
                 app.projects[0].todos[todoIndex].priority = todo._priority;
             });
 
@@ -36,7 +40,11 @@ export class StorageController {
                     app.addTodo(todo._title, projectId);
                     const todoIndex = app.projects[projectIndex].todos.length - 1;
                     app.projects[projectIndex].todos[todoIndex].description = todo._description;
-                    app.projects[projectIndex].todos[todoIndex].dueDate = todo._dueDate;
+                    if (todo._dueDate === "") {
+                        app.projects[projectIndex].todos[todoIndex].dueDate = todo._dueDate;
+                    } else {
+                        app.projects[projectIndex].todos[todoIndex].dueDate = new Date(todo._dueDate);
+                    }
                     app.projects[projectIndex].todos[todoIndex].priority = todo._priority;
                 });
             });

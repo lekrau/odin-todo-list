@@ -291,7 +291,7 @@ export class DisplayController {
 // - Disable for default project ✅
 // Remember opened project (don't change project on page reload) ✅
 // Use app methods in DisplayController instead of directly accessing projects ✅
-// Due Date einmal wirklich durch den gesamten Persistence-Roundtrip testen
+// Due Date einmal wirklich durch den gesamten Persistence-Roundtrip testen ✅
 // Datum löschen testen
 // ChatGPT Repository Review Prompt
 // README
