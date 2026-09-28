@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 export class DisplayController {
     body = document.querySelector("body");
@@ -107,7 +107,7 @@ export class DisplayController {
 
             title.textContent = todo.title;
             if (todo.dueDate !== "") {
-                dueDate.textContent = format(todo.dueDate, "dd.MM.yyyy");
+                dueDate.textContent = format(parseISO(todo.dueDate), "dd.MM.yyyy");
             }
             button.classList.add("todo");
             button.classList.add("button");
@@ -181,11 +181,7 @@ export class DisplayController {
         this.todoDetails.dataset.projectId = projectId;
         this.todoTitle.value = todo.title;
         this.todoDescription.value = todo.description;
-        if (todo.dueDate !== "") {
-            this.todoDueDate.value = format(todo.dueDate, "yyyy-MM-dd");
-        } else {
-            this.todoDueDate.value = todo.dueDate;
-        }
+        this.todoDueDate.value = todo.dueDate;
         this.todoPriority.value = todo.priority;
 
         // REFACTOR? Add eventListener to shared parent? Or specific eventListeners (see editAttribute())?
@@ -212,11 +208,7 @@ export class DisplayController {
         } else if (targetClass === "todo__description") {
             todo.description = value;
         } else if (targetClass === "todo__due-date") {
-            if (value === "") {
-                todo.dueDate = "";
-            } else {
-                todo.dueDate = new Date(value);
-            }
+            todo.dueDate = value;
         } else if (targetClass === "todo__priority") {
             todo.priority = +value;
         } else {
@@ -294,8 +286,11 @@ export class DisplayController {
 // Remember opened project (don't change project on page reload) ✅
 // Use app methods in DisplayController instead of directly accessing projects ✅
 // Due Date einmal wirklich durch den gesamten Persistence-Roundtrip testen ✅
-// Datum löschen testen
-// ChatGPT Repository Review Prompt
+// Datum löschen testen ✅
+// ChatGPT Repository Review Prompt ✅
+// - Timezone-/Date-only-Bug ✅
+// - Todo-Edits minimal hinter die App-Grenze ziehen
+// - Toten Code/erledigte TODO-Kommentare entfernen
 // README
 
 // Potenzielle Erweiterungen
