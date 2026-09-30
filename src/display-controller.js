@@ -180,11 +180,14 @@ export class DisplayController {
         this.todoDetails.dataset.todoId = todo.id;
         this.todoDetails.dataset.projectId = projectId;
         this.todoTitle.value = todo.title;
+        this.todoTitle.dataset.field = "title";
         this.todoDescription.value = todo.description;
+        this.todoDescription.dataset.field = "description";
         this.todoDueDate.value = todo.dueDate;
+        this.todoDueDate.dataset.field = "dueDate";
         this.todoPriority.value = todo.priority;
+        this.todoPriority.dataset.field = "priority";
 
-        // REFACTOR? Add eventListener to shared parent? Or specific eventListeners (see editAttribute())?
         this.todoTitle.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
         this.todoDescription.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
         this.todoDueDate.addEventListener("change", this.handleTodoDetailsChangeFunctionReference);
@@ -194,33 +197,16 @@ export class DisplayController {
     }
 
     handleTodoDetailsChange(event) {
-        const target = event.target;
+        const target = event.currentTarget;
         const value = target.value;
         const todoId = this.todoDetails.dataset.todoId;
         const projectId = this.todoDetails.dataset.projectId;
         const project = this.findProject(projectId);
-        const todo = this.findTodo(project, todoId);
+        const targetField = target.dataset.field;
 
-        // TODO: Refactor to use data attribute?
-        const targetClass = target.classList[0];
-        if (targetClass === "todo__title") {
-            todo.title = value;
-        } else if (targetClass === "todo__description") {
-            todo.description = value;
-        } else if (targetClass === "todo__due-date") {
-            todo.dueDate = value;
-        } else if (targetClass === "todo__priority") {
-            todo.priority = +value;
-        } else {
-            throw new Error(`Unknown change of attribute "${targetClass}" of todo "${todoId}" in project "${projectId}".`);
-        }
-
+        this.app.updateTodo(todoId, projectId, targetField, value);
         this.storageController.storeProjects(this.projects);
         this.renderList(project);
-    }
-
-    editAttribute(attribute, value) {
-        // REFACTOR? Make handleTodoDetailsChange shorter
     }
 
     handleAddTodoInputKeydown(event) {
@@ -289,13 +275,12 @@ export class DisplayController {
 // Datum löschen testen ✅
 // ChatGPT Repository Review Prompt ✅
 // - Timezone-/Date-only-Bug ✅
-// - Todo-Edits minimal hinter die App-Grenze ziehen
+// - Todo-Edits minimal hinter die App-Grenze ziehen - App.updateTodo(...) statt direktem Zugriff in handleTodoDetailsChange() ✅
 // - Toten Code/erledigte TODO-Kommentare entfernen
 // README
 
 // Potenzielle Erweiterungen
 // - Basic responsiveness
-// - Saubere Architektur-Trennung - App.editTodo(...), updateTodo(...) statt direktem Zugriff in handleTodoDetailsChange()
 // - "Done" marker ergänzen
 // - Projektunabhängige Listen (All, Planned, Today, Done)
 // - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag and Drop -> zurückgestellt
