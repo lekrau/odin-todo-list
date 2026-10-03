@@ -251,37 +251,3 @@ export class DisplayController {
         });
     }
 };
-
-// TODOs
-// Scope creep vermeiden!!!
-// Assignment 5
-// - Expand a single todo to see/edit its details -> handleTodoClick implementieren
-//  * Due date, description etc. anzeigen ✅
-//  * Styling: Als Leiste rechts öffnen ✅
-//  * Edit details ✅
-// - show duedate in todo overview ✅
-// - change color in todo overview for different priorities ✅
-// - Delete a todo. ✅
-// Add a todo ✅
-// Create new project
-// - Edit project names (on creation) ✅
-// - Add storage persistence ✅
-// - Fix UI when project lists fills whole screen height ✅
-// Delete a project ✅
-// - Disable for default project ✅
-// Remember opened project (don't change project on page reload) ✅
-// Use app methods in DisplayController instead of directly accessing projects ✅
-// Due Date einmal wirklich durch den gesamten Persistence-Roundtrip testen ✅
-// Datum löschen testen ✅
-// ChatGPT Repository Review Prompt ✅
-// - Timezone-/Date-only-Bug ✅
-// - Todo-Edits minimal hinter die App-Grenze ziehen - App.updateTodo(...) statt direktem Zugriff in handleTodoDetailsChange() ✅
-// - Toten Code/erledigte TODO-Kommentare entfernen
-// README
-
-// Potenzielle Erweiterungen
-// - Basic responsiveness
-// - "Done" marker ergänzen
-// - Projektunabhängige Listen (All, Planned, Today, Done)
-// - Ändern der Reihenfolge von Todos in Listen-Ansicht via Drag and Drop -> zurückgestellt
-// - Überfällige und/oder heutige Todos visuell hervorheben
